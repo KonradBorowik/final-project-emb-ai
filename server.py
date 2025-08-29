@@ -31,8 +31,8 @@ def detect_emotion() -> str:
                         'joy': {response['joy']}, \
                         'sadness': {response['sadness']}. \
                         The dominant emotion is {response['dominant_emotion']}."
-    else:
-        return "Invalid text! Please try again!"
+
+    return "Invalid text! Please try again!"
 
 
 @app.route("/")
