@@ -18,12 +18,25 @@ def emotion_detector(text_to_analyze: str) -> dict:
         timeout=10
     )
     formatted_response: dict = json.loads(response.text)
-    emotions: dict = formatted_response['emotionPredictions'][0]['emotion']
 
-    max_emotion_value: float = max(emotions.values())
-    for emotion in emotions:
-        if emotions[emotion] == max_emotion_value:
-            emotions['dominant_emotion'] = emotion
-            break
+    if response.status_code == 200:
+        emotions: dict = formatted_response['emotionPredictions'][0]['emotion']
+    elif response.status_code == 400:
+        emotions: dict = {
+            'anger': None,
+            'disgust': None,
+            'fear': None,
+            'joy': None,
+            'sadness': None,
+        }
+
+    try:
+        max_emotion_value: float = max(emotions.values())
+        for emotion in emotions:
+            if emotions[emotion] == max_emotion_value:
+                emotions['dominant_emotion'] = emotion
+                break
+    except:
+        emotions['dominant_emotion'] = None
 
     return emotions

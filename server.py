@@ -23,15 +23,16 @@ def detect_emotion() -> str:
     text_to_analyze: str = request.args.get('textToAnalyze')
     response: dict = emotion_detector(text_to_analyze)
 
-    output: str = f"For the given statement, the system response is \
-                    'anger': {response['anger']}, \
-                    'disgust': {response['disgust']}, \
-                    'fear': {response['fear']}, \
-                    'joy': {response['joy']}, \
-                    'sadness': {response['sadness']}. \
-                    The dominant emotion is {response['dominant_emotion']}."
-
-    return output
+    if response['dominant_emotion']:
+        return f"For the given statement, the system response is \
+                        'anger': {response['anger']}, \
+                        'disgust': {response['disgust']}, \
+                        'fear': {response['fear']}, \
+                        'joy': {response['joy']}, \
+                        'sadness': {response['sadness']}. \
+                        The dominant emotion is {response['dominant_emotion']}."
+    else:
+        return "Invalid text! Please try again!"
 
 
 @app.route("/")
