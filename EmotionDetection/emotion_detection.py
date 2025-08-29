@@ -7,8 +7,7 @@ import requests
 def emotion_detector(text_to_analyze: str) -> dict:
     ''' Analyze the text and extract the emotion of it
     '''
-    url: str = 'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/\
-                NlpService/EmotionPredict'
+    url: str = 'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'  # pylint: disable=C0301
     headers: dict = {"grpc-metadata-mm-model-id": "emotion_aggregated-workflow_lang_en_stock"}
     input_data: dict = { "raw_document": { "text": text_to_analyze } }
 
