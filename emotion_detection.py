@@ -14,5 +14,11 @@ def emotion_detector(text_to_analyse: str) -> dict:
     )
     formatted_response: dict = json.loads(response.text)
     emotions: dict = formatted_response['emotionPredictions'][0]['emotion']
+    
+    max_emotion_value: float = max(emotions.values())
+    for emotion in emotions:
+        if emotions[emotion] == max_emotion_value:
+            emotions['dominant_emotion'] = emotion
+            break
 
     return emotions
